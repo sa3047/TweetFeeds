@@ -24,7 +24,7 @@ public class ReadLiveTweets {
 		    Properties prop = AccessProperties.getTwiiterProperties();
 		    AccessToken accessToken = loadAccessToken(Integer.parseInt("103492387"), prop);
 		    Twitter twitter = factory.getInstance();
-		    twitter.setOAuthConsumer(prop.getProperty("customerSecret") ,prop.getProperty("customerkey") );
+		    twitter.setOAuthConsumer(prop.getProperty("customerkey") ,prop.getProperty("customerSecret") );
 		    twitter.setOAuthAccessToken(accessToken);
 		
 		    
