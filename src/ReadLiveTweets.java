@@ -4,6 +4,11 @@ import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.auth.AccessToken;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Properties;
 
 public class ReadLiveTweets {
@@ -22,6 +27,8 @@ public class ReadLiveTweets {
 		    TwitterFactory factory = new TwitterFactory();
 		    //get the properties for twitter account
 		    Properties prop = AccessProperties.getTwiiterProperties();
+		    
+		    //Get the access token for particular ID
 		    AccessToken accessToken = loadAccessToken(Integer.parseInt("103492387"), prop);
 		    Twitter twitter = factory.getInstance();
 		    twitter.setOAuthConsumer(prop.getProperty("customerkey") ,prop.getProperty("customerSecret") );
@@ -29,7 +36,15 @@ public class ReadLiveTweets {
 		
 		    
 		    ResponseList<Status> tweets = twitter.getHomeTimeline();
-		    System.out.println("Successfully updated the status to [" + tweets.toString() + "].");
+		    //System.out.println("Successfully updated the status to [" + tweets.toString() + "].");
+		    
+		    for (Status s : tweets )
+		    {
+		    	//System.out.println(s.getText());
+		    	saveTweets(s.getText());
+		    }
+		    
+		    
 		    System.exit(0);
 	}
 
@@ -39,6 +54,31 @@ public class ReadLiveTweets {
 	    return new AccessToken(token, tokenSecret);
 	  }
 	
+	public static void saveTweets(String tweets)
+    {
+       
+        try{
+             
+            File file =new File("Tweets.txt");
+ 
+            //if file doesnt exists, then create it
+            if(!file.exists()){
+                file.createNewFile();
+            }
+ 
+            //true = append file
+            FileWriter fileWritter = new FileWriter(file.getName(),true);
+            BufferedWriter bufferWritter = new BufferedWriter(fileWritter);
+            bufferWritter.write(tweets);
+            bufferWritter.write("\n");
+            bufferWritter.close();
+ 
+ 
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+      
+    }
 	
 }
 

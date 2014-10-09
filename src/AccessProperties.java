@@ -19,11 +19,11 @@ public class AccessProperties {
 			prop.load(input);
 			
 			//check properties
-			/*// get the property value and print it out
+			// get the property value and print it out
 			System.out.println(prop.getProperty("token"));
 			System.out.println(prop.getProperty("toeknSecret"));
 			System.out.println(prop.getProperty("customerSecret"));
-			System.out.println(prop.getProperty("customerkey"));*/
+			System.out.println(prop.getProperty("customerkey"));
 	 
 			
 		} catch (IOException ex) {
